@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Agência Stiff - Localidades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        function filtrarItens() {
+            let filtro = document.getElementById("filtro").value.toLowerCase();
+            document.querySelectorAll(".item").forEach(elem => {
+                elem.style.display = elem.textContent.toLowerCase().includes(filtro) ? "block" : "none";
+            });
+        }
+        function marcarVisitada(elem, local) {
+            fetch("/marcar_visitada", {
+                method: "POST",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: "local=" + encodeURIComponent(local)
+            }).then(() => elem.classList.toggle("visitada"));
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="Logo">
+        <h1>Agência Stiff</h1>
+        <h2>🌍 Lista de Localidades - {{ nome }}</h2>
+    </header>
+    <main class="container">
+        <div class="controls">
+            <input id="filtro" type="text" onkeyup="filtrarItens()" placeholder="Filtrar...">
+            <form action="{{ url_for('index', apelido=apelido) }}" method="post">
+                <input type="hidden" name="reset" value="1">
+                <button class="btn">Resetar</button>
+            </form>
+        </div>
+        <section class="itens">
+            {% for item in itens %}
+            <div class="item {% if item in visitadas %}visitada{% endif %}" 
+                 style="background-color: {{ cor_localidade }};" 
+                 onclick="marcarVisitada(this,'{{ item }}')">
+                 {{ item }}
+            </div>
+            {% endfor %}
+        </section>
+        <div class="paginacao">
+            {% if pagina_atual > 1 %}
+            <a class="btn" href="{{ url_for('pagina_anterior', apelido=apelido) }}">← Anterior</a>
+            {% endif %}
+            {% if pagina_atual < total_paginas %}
+            <a class="btn" href="{{ url_for('proxima_pagina', apelido=apelido) }}">Próxima →</a>
+            {% endif %}
+        </div>
+        <footer class="footer">Exibindo página {{ pagina_atual }} de {{ total_paginas }}</footer>
+    </main>
+    <a class="voltar" href="/">← Voltar</a>
+</body>
+</html>

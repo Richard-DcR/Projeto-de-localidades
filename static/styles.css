@@ -1,0 +1,57 @@
+
+body {
+    background: #0f0c1a;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    margin: 0; padding: 0;
+}
+header {
+    text-align: center; padding: 20px; background: #1c152b;
+}
+.logo { height: 80px; }
+h1 { margin:5px 0; color: #a173ff; }
+h2 { margin:0; color:#ccc; font-weight:400; }
+.clientes {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:15px; padding:20px; max-width:1000px; margin:auto;
+}
+.cliente {
+    background:#2d2340; padding:15px; border-radius:8px;
+    text-align:center; transition:0.3s;
+}
+.cliente a {
+    color:#a173ff; text-decoration:none; font-weight:600;
+}
+.cliente:hover { background:#3b2d56; }
+.container {
+    padding:20px; max-width:1000px; margin:auto;
+    background: transparent; border-radius:8px;
+}
+.controls {
+    text-align:center; margin-bottom:15px;
+}
+.controls input {
+    padding:8px; width:70%; max-width:300px; border:none; border-radius:4px;
+}
+.btn {
+    padding:8px 16px; background:#a173ff; border:none; border-radius:4px;
+    color:#fff; text-decoration:none; cursor:pointer; margin:5px;
+}
+.btn:hover { background:#c1a9ff; }
+.itens {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:10px; margin-top:20px;
+}
+.item {
+    /* background-color set inline via cor_localidade */
+    color:#000; font-weight:bold; padding:10px;
+    border-radius:6px; text-align:center; cursor:pointer;
+    transition:transform 0.2s;
+}
+.item:hover { transform:scale(1.05); }
+.item.visitada {
+    background:red !important; color:#fff !important;
+}
+.paginacao { text-align:center; margin:15px 0; }
+.footer { text-align:center; color:#aaa; padding:10px; }
+.voltar { display:block; text-align:center; color:#aaa; margin:10px; }
